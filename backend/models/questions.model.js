@@ -10,7 +10,14 @@ const questionSchema = new Schema({
     description: {
         type: String, required: true
     },
+    answer: {
+        type: String, required: true
+    },
     difficulty: {
+        type: String,
+        required: true
+    },
+    subject: {
         type: String,
         required: true
     },

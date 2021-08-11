@@ -14,6 +14,8 @@ import NewTest from './components/test.component'
 import CreateTime from './components/create-time.component'
 import CreateSubject from './components/create-subject.component'
 import Timer from './components/timer.component'
+import Stopwatch from './components/react-stopwatch.component';
+import Dashboard from './components/dashboard.component';
 
 function App() {
   return (
@@ -32,6 +34,7 @@ function App() {
       <Route path="/createTest" component={CreateTest} />
       <Route path="/newTest" component={NewTest} />
       <Route path="/time-up" component={Timer} />
+      <Route path="/dashboard" component={Dashboard} />
 
       </div>
       

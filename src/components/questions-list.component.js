@@ -7,6 +7,7 @@ const Question = props => (
     <td>{props.question.username}</td>
     <td>{props.question.description}</td>
     <td>{props.question.difficulty}</td>
+    <td>{props.question.subject}</td>
     <td>{props.question.date.substring(0,10)}</td>
     <td>
       <button><Link to={"/edit/"+props.question._id}>edit</Link></button> | <button onClick={() => { props.deleteQuestions(props.question._id) }}>delete</button>
@@ -58,6 +59,7 @@ export default class QuestionsList extends Component {
               <th>Username</th>
               <th>Description</th>
               <th>Difficulty</th>
+              <th>Subject</th>
               <th>Date</th>
               <th>Actions</th>
             </tr>

@@ -9,17 +9,22 @@ export default class CreateQuestion extends Component {
 
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangeAnswer = this.onChangeAnswer.bind(this);
     this.onChangeDifficulty = this.onChangeDifficulty.bind(this);
+    this.onChangeSubject = this.onChangeSubject.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
       username: '',
       description: '',
+      answer: '',
       difficulty: '',
+      subject: '',
       date: new Date(),
       users: [],
       difficulties: [],
+      subjects: [], 
     }
   }
 
@@ -49,6 +54,19 @@ export default class CreateQuestion extends Component {
       .catch((error) => {
         console.log(error);
       })
+
+      axios.get('http://localhost:5000/subjects/')
+      .then(response => {
+        if (response.data.length > 0) {
+          this.setState({
+            subjects: response.data.map(subject => subject.subject),
+            subject: response.data[0].subject
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   onChangeUsername(e) {
@@ -63,9 +81,21 @@ export default class CreateQuestion extends Component {
     })
   }
 
+  onChangeAnswer(e) {
+    this.setState({
+      answer: e.target.value
+    })
+  }
+
   onChangeDifficulty(e) {
     this.setState({
       difficulty: e.target.value
+    })
+  }
+
+  onChangeSubject(e) {
+    this.setState({
+      subject: e.target.value
     })
   }
 
@@ -81,7 +111,9 @@ export default class CreateQuestion extends Component {
     const question = {
       username: this.state.username,
       description: this.state.description,
+      answer: this.state.answer,
       difficulty: this.state.difficulty,
+      subject: this.state.subject,
       date: this.state.date
     }
 
@@ -115,16 +147,25 @@ export default class CreateQuestion extends Component {
               }
           </select>
         </div>
-        <div className="form-group"> 
-          <label>Description: </label>
-          <input  type="text"
+        <div className="form-group mt-2"> 
+          <label>Question: </label>
+          <textarea  type="text"
               required
               className="form-control"
               value={this.state.description}
               onChange={this.onChangeDescription}
               />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-2"> 
+          <label>Answer: </label>
+          <textarea  type="text"
+              required
+              className="form-control"
+              value={this.state.answer}
+              onChange={this.onChangeAnswer}
+              />
+        </div>
+        <div className="form-group mt-2">
           <label>Difficulty: </label>
           <select ref="difficultyInput"
               required
@@ -141,7 +182,24 @@ export default class CreateQuestion extends Component {
               }
           </select>
         </div>
-        <div className="form-group">
+        <div className="form-group mt-2">
+          <label>Subject: </label>
+          <select ref="subjectInput"
+              required
+              className="form-control"
+              value={this.state.subject}
+              onChange={this.onChangeSubject}>
+              {
+                this.state.subjects.map(function(subject) {
+                  return <option 
+                    key={subject}
+                    value={subject}>{subject}
+                    </option>;
+                })
+              }
+          </select>
+        </div>
+        <div className="form-group mt-2">
           <label>Date: </label>
           <div>
             <DatePicker
