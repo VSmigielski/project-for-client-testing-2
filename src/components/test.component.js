@@ -9,8 +9,7 @@ import Stopwatch from './react-stopwatch.component'
 const STATUS = {
     STARTED: 'Started',
     STOPPED: 'Stopped',
-  }
-
+}
 
 const Test = (props) => {
     const [loading, setLoading] = useState(true);
@@ -20,8 +19,6 @@ const Test = (props) => {
     const [secondsRemaining, setSecondsRemaining] = useState(time * 60)
     const [status, setStatus] = useState(STATUS.STOPPED)
     const [elapsedTime, setElapsedTime] = useState(null);
-
-
 
     const url = "http://localhost:5000/questions/"
 
